@@ -1,0 +1,65 @@
+:snippets: ../../../target/snippets
+
+= Simple Bitcoin Trading API
+
+This page documents all available API endpoints with example requests and responses for a service running at http://localhost:8080. Documentation is automatically generated from from tests.
+
+== Create user
+
+Send a single user's data as payload.
+
+.request
+include::{snippets}/postUser/http-request.adoc[]
+
+.response
+include::{snippets}/postUser/http-response.adoc[]
+
+== Query user
+
+Returns a single JSON object.
+
+.request
+include::{snippets}/getUser/http-request.adoc[]
+
+.response
+include::{snippets}/getUser/http-response.adoc[]
+
+== Query all users
+
+Returns a list of JSON objects.
+
+.request
+include::{snippets}/getAllUsers/http-request.adoc[]
+
+.response
+include::{snippets}/getAllUsers/http-response.adoc[]
+
+== Delete user
+
+.request
+include::{snippets}/deleteUser/http-request.adoc[]
+
+.response
+include::{snippets}/deleteUser/http-response.adoc[]
+
+== Post transaction
+
+Define either "btcAmount" or "usdAmount", but not both. Either value can be positive (in which case
+it is bought) or negative (in which case it is sold). Returns a 400 error if the current account
+balance is insufficient.
+
+.request
+include::{snippets}/postTx/http-request.adoc[]
+
+.response
+include::{snippets}/postTx/http-response.adoc[]
+
+== Query all transactions of a user
+
+Returns a list of JSON objects.
+
+.request
+include::{snippets}/getAllTx/http-request.adoc[]
+
+.response
+include::{snippets}/getAllTx/http-response.adoc[]
