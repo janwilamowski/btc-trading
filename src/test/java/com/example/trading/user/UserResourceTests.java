@@ -1,31 +1,27 @@
 package com.example.trading.user;
 
-import org.springframework.test.web.servlet.MvcResult;
 import com.example.trading.Application;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-// import java.util.Arrays;
-// import org.springframework.boot.test.mock.mockito.MockBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-// import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-// import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -40,13 +36,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// @RunWith(SpringRunner.class)
-// @SpringBootTest
-// @WebMvcTest(UserResource.class)
-// @RunWith(SpringRunner.class)
-// @ExtendWith(SpringExtension.class)
+
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = Application.class)
-// @EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
 @AutoConfigureRestDocs(outputDir = "target/snippets")
@@ -58,15 +49,6 @@ class UserResourceTests {
     @Autowired
     private UserRepository userRepository;
 
-    // @AfterAll
-    // public static void resetDatabase() {
-    //     userRepository.deleteAll();
-    // }
-
-    // @Test
-    // void contextLoads() {
-    // }
-
     @Test
     public void shouldReturnNoUsers() throws Exception {
         this.mockMvc.perform(get("/users"))
@@ -74,22 +56,10 @@ class UserResourceTests {
             .andExpect(content().string("[]"));
     }
 
-    // @Test
-    // public void shouldReturnAllUsers() throws Exception {
-    //     User mike = new User("mike", "mike@online.com");
-    //     List<User> allUsers = Arrays.asList(mike);
-    //     given(userRepository.findAll()).willReturn(allUsers);
-
-    //     this.mockMvc.perform(get("/users"))
-    //         .andExpect(status().isOk())
-    //         .andExpect(content().string("[]"));
-    // }
-
     @Test
     public void createUser() throws Exception {
         User bob = new User("bob", "bob@bob.com");
         String json = new ObjectMapper().writeValueAsString(bob);
-        // byte[] json = JsonUtil.toJson(bob);
         MvcResult result = mockMvc.perform(post("/users").contentType(MediaType.APPLICATION_JSON).content(json))
             .andDo(print())
             .andExpect(status().isCreated())
@@ -124,14 +94,6 @@ class UserResourceTests {
             .andDo(document("deleteUser"));
         deleteTestUser(user.getId());
     }
-
-    // @Test
-    // public void deleteUserFailure() throws Exception {
-    //     // Mockito.when(userRepository.deleteById(1L)).thenThrow(new IllegalArgumentException());
-    //     // Mockito.doThrow(new IllegalArgumentException()).when(userRepository).deleteById(1L);
-    //     mockMvc.perform(delete("/users/100"))
-    //         .andExpect(status().isNotFound());
-    // }
 
     private User createTestUser(String name, String email) {
         User user = new User(name, email);

@@ -47,10 +47,6 @@ public class UserResource {
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity deleteUser(@PathVariable long id) {
-        // Optional<User> user = userRepository.findById(id);
-        // if (users.isEmpty()) {
-        //     throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        // }
         try {
             userRepository.deleteById(id);
             return ResponseEntity.noContent().build();

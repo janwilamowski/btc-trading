@@ -38,13 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// @RunWith(SpringRunner.class)
-// @SpringBootTest
-// @WebMvcTest(UserResource.class)
-// @RunWith(SpringRunner.class)
-// @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = Application.class)
-// @EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
 @AutoConfigureRestDocs(outputDir = "target/snippets")
@@ -74,7 +68,6 @@ class TransactionResourceTests {
     @Test
     public void testCreateTransaction() throws Exception {
         User bob = createTestUser("bob", "bob@bob.com");
-        // String json = new ObjectMapper().writeValueAsString(new Order(1, 0));
         String json = "{\"btcAmount\":1}";
         postTx(bob, json)
             .andDo(print())
